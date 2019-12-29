@@ -1,0 +1,9 @@
+{
+  "name": "js-rpg-maker",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "https://github.com/CurtisConway/js-rpg-maker.git",
+  "author": "Curtis <curtis@drumeo.com>",
+  "license": "MIT",
+  "private": false
+}
