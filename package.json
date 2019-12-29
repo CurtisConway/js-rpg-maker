@@ -2,13 +2,27 @@
   "name": "js-rpg-maker",
   "version": "0.0.1",
   "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "coveralls": "jest --coverage && cat ./tests/coverage/lcov.info | coveralls",
+  },
   "repository": "https://github.com/CurtisConway/js-rpg-maker.git",
   "author": "Curtis <curtis@drumeo.com>",
   "license": "MIT",
   "private": false,
   "devDependencies": {
-    "eslint": "^6.8.0",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "babel-jest": "^24.9.0",
+    "coveralls": "^3.0.6",
+    "eslint": "^6.1.0",
     "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.19.1"
+    "eslint-plugin-import": "^2.18.2",
+    "esm": "^3.2.25",
+    "jest": "^24.9.0",
+    "jsdoc-to-markdown": "^5.0.0"
+  },
+  "jest": {
+    "coverageDirectory": "tests/coverage"
   }
 }
