@@ -7,7 +7,7 @@ import Events from '../utils/event';
  */
 class Scene {
     /**
-     * Mount the scene
+     * Construct the scene
      *
      * @param {object} params
      * @param {string} params.name - the name of the scene

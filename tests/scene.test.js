@@ -1,6 +1,6 @@
 import Scene from '../src/scene/scene';
 
-describe('scene', () => {
+describe('Scene', () => {
     it('can have a name', () => {
         const scene = new Scene({
             name: 'Test Scene',
