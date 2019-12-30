@@ -1,4 +1,4 @@
-import Events from './utils/event';
+import Events from '../utils/event';
 
 /**
  * @class Scene
@@ -9,16 +9,19 @@ class Scene {
     /**
      * Mount the scene
      *
-     * @param {object} params - event handler for the mount event
+     * @param {object} params
+     * @param {string} params.name - the name of the scene
      * @param {function(Object)} [params.onMount] - event handler for the mount event
      * @param {function(Object)} [params.onDismount] - event handler for the dismount event
      *
      * @constructor
      */
     constructor({
+        name,
         onMount,
         onDismount,
     }) {
+        this.name = name;
         this.isMounted = false;
         this.eventHandlers = {
             mount: onMount ? [onMount] : [],

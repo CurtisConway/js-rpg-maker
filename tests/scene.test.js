@@ -1,8 +1,17 @@
-import Scene from '../src/scene';
+import Scene from '../src/scene/scene';
 
 describe('scene', () => {
+    it('can have a name', () => {
+        const scene = new Scene({
+            name: 'Test Scene',
+        });
+
+        expect(scene.name).toBe('Test Scene');
+    });
+
     it('can add an onMount handler', () => {
         const scene = new Scene({
+            name: 'Test Scene',
             onMount: () => ({})
         });
 
@@ -11,6 +20,7 @@ describe('scene', () => {
 
     it('can add an onDismount handler', () => {
         const scene = new Scene({
+            name: 'Test Scene',
             onDismount: () => ({})
         });
 
@@ -19,6 +29,7 @@ describe('scene', () => {
 
     it('can mount', (done) => {
         const scene = new Scene({
+            name: 'Test Scene',
             onMount: () => {
                 expect(scene.isMounted).toBe(true);
 
@@ -29,6 +40,7 @@ describe('scene', () => {
 
     it('can dismount', (done) => {
         const scene = new Scene({
+            name: 'Test Scene',
             onMount: () => {
                 scene.dismount();
             },
@@ -42,6 +54,7 @@ describe('scene', () => {
 
     it('can move on to the next scene', (done) => {
         const sceneOne = new Scene({
+            name: 'Test Scene',
             onMount: async () => {
                 const sceneTwo = await sceneOne.nextScene(new Scene({
                     onMount: () => {
