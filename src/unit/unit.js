@@ -97,7 +97,7 @@ class Unit {
 
 
     /**
-     * Damage the Unit
+     * Heal the Unit
      *
      * @param {number} amount
      */
