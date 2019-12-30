@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "coveralls": "jest --coverage && cat ./tests/coverage/lcov.info | coveralls"
+    "coveralls": "jest --coverage"
   },
   "repository": "https://github.com/CurtisConway/js-rpg-maker.git",
   "author": "Curtis <curtis@drumeo.com>",
