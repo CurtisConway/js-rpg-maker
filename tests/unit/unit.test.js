@@ -1,4 +1,4 @@
-import Unit from '../src/unit/unit';
+import Unit from '../../src/unit/unit';
 
 describe('Unit', () => {
     let unit;
