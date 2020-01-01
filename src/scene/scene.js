@@ -2,7 +2,6 @@ import Events from '../utils/event';
 
 /**
  * @class Scene
- *
  * @mixes Events
  */
 class Scene {
@@ -27,35 +26,36 @@ class Scene {
             mount: onMount ? [onMount] : [],
             dismount: onDismount ? [onDismount] : [],
         };
-
-        (async () => {
-            await this.mount();
-        })();
     }
 
     /**
      * Mount the scene
      */
-    async mount() {
-        setTimeout(() => {
-            this.isMounted = true;
-            this.emit('mount');
-        }, 50);
+    mount() {
+        this.isMounted = true;
+
+        this.emit('mount');
     }
 
     /**
      * Dismount the scene
      */
-    async dismount() {
+    dismount() {
         this.isMounted = false;
         this.emit('dismount');
     }
 
     /**
-     * Dismount the scene and move on to the next scene
+     * Dismount the scene and mount the next scene
+     *
+     * @param {Scene} scene - The next scene to move on to
      */
-    async nextScene(scene) {
-        await this.dismount();
+    next(scene) {
+        this.dismount();
+
+        setTimeout(() => {
+            scene.mount();
+        }, 10);
 
         return scene;
     }
