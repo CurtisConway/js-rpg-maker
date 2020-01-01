@@ -45,7 +45,7 @@ describe('Unit', () => {
     });
 
     it('can have a death event handler', () => {
-        expect(unit.eventHandlers.spawn.length).toBeGreaterThan(0);
+        expect(unit.eventHandlers.death.length).toBeGreaterThan(0);
     });
 
     it('can be damaged', () => {
