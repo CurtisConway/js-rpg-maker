@@ -8,7 +8,7 @@ const Events = {
     eventHandlers: {},
 
     /**
-    * Add a callback to the event handlers
+    * Add an event listener by event name
     *
     * @param {string} event
     * @param {function(Object)} handler
@@ -22,7 +22,7 @@ const Events = {
     },
 
     /**
-     * Emit any event handler
+     * Emit any event listener by event name
      *
      * @param {string} event
      * @param {object} payload - Optional data to pass along with the event
