@@ -1,8 +1,7 @@
 import Events from '../utils/event';
 
 /**
- * @class Unit
- *
+ * Unit
  * @mixes Events
  */
 class Unit {

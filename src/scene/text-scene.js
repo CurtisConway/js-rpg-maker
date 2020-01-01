@@ -1,8 +1,8 @@
 import Scene from './scene';
 
 /**
- * @class TextScene
- * @augments Scene
+ * TextScene
+ * @extends Scene
  */
 class TextScene extends Scene {
     /**
@@ -13,6 +13,7 @@ class TextScene extends Scene {
      * @param {function(Object)} [params.onMount] - event handler for the mount event
      * @param {function(Object)} [params.onDismount] - event handler for the dismount event
      * @param {string} params.text - The text for the scene to display
+     * @param {array} params.nextScenes - The next scenes to go to
      *
      * @constructor
      */

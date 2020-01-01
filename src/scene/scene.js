@@ -1,7 +1,7 @@
 import Events from '../utils/event';
 
 /**
- * @class Scene
+ * Scene
  * @mixes Events
  */
 class Scene {
