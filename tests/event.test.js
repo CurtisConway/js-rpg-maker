@@ -18,8 +18,32 @@ describe('Events', () => {
     });
 
     it('can emit an event with a payload', (done) => {
-        events.on('testEvent', (payload) => {
+        events.on('testEvent', ({payload}) => {
             expect(payload).toHaveProperty('test');
+
+            done();
+        });
+
+        events.emit('testEvent', {
+            test: true,
+        });
+    });
+
+    it('can get the emitter', (done) => {
+        events.on('testEvent', ({emitter}) => {
+            expect(emitter).toBeDefined();
+
+            done();
+        });
+
+        events.emit('testEvent', {
+            test: true,
+        });
+    });
+
+    it('can get the time of the event', (done) => {
+        events.on('testEvent', ({time}) => {
+            expect(time).toBeGreaterThan(0);
 
             done();
         });

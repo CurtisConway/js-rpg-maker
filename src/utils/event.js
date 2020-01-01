@@ -1,4 +1,16 @@
 /**
+ * Event
+ *
+ * @param {object} emitter
+ * @param {object} payload
+ */
+const Event = (emitter, payload = {}) => ({
+    emitter,
+    payload,
+    time: performance.now(),
+});
+
+/**
  * This provides methods used for event handling. It's not meant to
  * be used directly.
  *
@@ -24,18 +36,20 @@ const Events = {
     /**
      * Emit any event listener by event name
      *
-     * @param {string} event
+     * @param {string} eventName
      * @param {object} payload - Optional data to pass along with the event
      */
-    emit(event, payload = {}) {
-        const handlers = this.eventHandlers[event];
+    emit(eventName, payload = {}) {
+        const handlers = this.eventHandlers[eventName];
 
         if (!handlers || handlers.length < 1) {
             return;
         }
 
+        const event = Event(this, payload);
+
         handlers.forEach((handler) => {
-            handler(payload);
+            handler(event);
         });
     },
 };
