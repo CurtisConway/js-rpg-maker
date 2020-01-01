@@ -64,9 +64,34 @@ describe('Unit', () => {
         unit.damage(100);
     });
 
+    it('can respawn', (done) => {
+        unit.on('death', () => {
+            unit.spawn();
+        });
+
+        unit.on('spawn', () => {
+            expect(unit.name).toBe('Test Unit');
+            expect(unit.attributes.totalHealth).toBe(100);
+            expect(unit.attributes.currentHealth).toBe(100);
+            expect(unit.attributes.armor).toBe(100);
+            expect(unit.attributes.speed).toBe(10);
+            expect(unit.attributes.strength).toBe(10);
+
+            done();
+        });
+
+        unit.damage(100);
+    });
+
     it('can be healed', () => {
         unit.heal(10);
 
         expect(unit.attributes.currentHealth).toBe(70);
+    });
+
+    it('cant be over healed', () => {
+        unit.heal(10000);
+
+        expect(unit.attributes.currentHealth).toBe(unit.attributes.totalHealth);
     });
 });

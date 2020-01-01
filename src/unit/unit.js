@@ -32,14 +32,14 @@ class Unit {
         onDeath,
     }) {
         this.name = name;
-        this.alive = currentHealth > 0;
+        this.alive = false;
+        this.attributes = {};
         this.eventHandlers = {
             spawn: onSpawn ? [onSpawn] : [],
             death: onDeath ? [onDeath] : [],
         };
 
         this.spawn({
-            name,
             totalHealth,
             currentHealth,
             armor,
@@ -51,33 +51,35 @@ class Unit {
     /**
      * Spawn the Unit
      *
-     * @param {object} params
-     * @param {number} params.totalHealth - the total health of the unit
-     * @param {number} params.currentHealth - the current health of the unit
-     * @param {number} params.speed - the speed of the unit
-     * @param {number} params.strength - the strength of the unit
-     * @param {number} params.armor - the armor of the unit
+     * @param {object} [params]
+     * @param {number} [params.totalHealth] - the total health of the unit
+     * @param {number} [params.currentHealth] - the current health of the unit
+     * @param {number} [params.speed] - the speed of the unit
+     * @param {number} [params.strength] - the strength of the unit
+     * @param {number} [params.armor] - the armor of the unit
      */
     spawn({
         totalHealth,
         currentHealth,
+        armor,
         speed,
         strength,
-        armor,
-    }) {
+    } = {}) {
         this.attributes = {
             totalHealth,
             armor,
             speed,
             strength,
+            ...this.attributes,
         };
 
-        if (currentHealth != null && currentHealth <= totalHealth) {
+        if (currentHealth != null && currentHealth <= this.attributes.totalHealth) {
             this.attributes.currentHealth = Number(currentHealth);
         } else {
-            this.attributes.currentHealth = Number(totalHealth);
+            this.attributes.currentHealth = Number(this.attributes.totalHealth);
         }
 
+        this.alive = true;
         this.emit('spawn');
     }
 
@@ -90,6 +92,7 @@ class Unit {
         this.attributes.currentHealth -= amount;
 
         if (this.attributes.currentHealth <= 0) {
+            this.attributes.currentHealth = 0;
             this.alive = false;
             this.emit('death');
         }
