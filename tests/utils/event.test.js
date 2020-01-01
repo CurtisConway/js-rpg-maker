@@ -1,4 +1,4 @@
-import Events from '../src/utils/event';
+import Events from '../../src/utils/event';
 
 class TestEvents {}
 
