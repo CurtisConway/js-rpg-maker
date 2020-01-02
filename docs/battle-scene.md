@@ -8,8 +8,12 @@ BattleScene
 
 * [BattleScene](#BattleScene) ⇐ <code>Scene</code>
     * [new BattleScene(params)](#new_BattleScene_new)
-    * [.getTurnOrder()](#BattleScene+getTurnOrder)
-    * [.nextTurn()](#BattleScene+nextTurn)
+    * _instance_
+        * [.getTurnOrder()](#BattleScene+getTurnOrder)
+        * [.nextTurn()](#BattleScene+nextTurn)
+        * [.attack(attacker, defender, damage)](#BattleScene+attack)
+    * _static_
+        * [.calculateDamage(attacker, defender, damage)](#BattleScene.calculateDamage)
 
 <a name="new_BattleScene_new"></a>
 
@@ -39,3 +43,32 @@ Get the turn order
 Go to the next turn
 
 **Kind**: instance method of [<code>BattleScene</code>](#BattleScene)  
+<a name="BattleScene+attack"></a>
+
+### battleScene.attack(attacker, defender, damage)
+Emit an attack event between two units
+
+**Kind**: instance method of [<code>BattleScene</code>](#BattleScene)  
+
+| Param | Type |
+| --- | --- |
+| attacker | <code>Unit</code> | 
+| defender | <code>Unit</code> | 
+| damage | <code>number</code> | 
+
+<a name="BattleScene.calculateDamage"></a>
+
+### BattleScene.calculateDamage(attacker, defender, damage)
+Calculate the damage based on unit attributes
+
+Will increase damage by 1 for every 2 strength the attacker has
+Will reduce the damage by 1 for every 100 armor the defender has
+
+**Kind**: static method of [<code>BattleScene</code>](#BattleScene)  
+
+| Param | Type |
+| --- | --- |
+| attacker | <code>Unit</code> | 
+| defender | <code>Unit</code> | 
+| damage | <code>number</code> | 
+
