@@ -8,5 +8,5 @@ Sort an array of objects by key
 | Param | Type |
 | --- | --- |
 | array | <code>array</code> | 
-| key | <code>string</code> \| <code>number</code> | 
+| key | <code>string</code> | 
 

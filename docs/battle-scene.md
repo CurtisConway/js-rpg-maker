@@ -10,8 +10,10 @@ BattleScene
     * [new BattleScene(params)](#new_BattleScene_new)
     * _instance_
         * [.getTurnOrder()](#BattleScene+getTurnOrder)
+        * [.endTurn()](#BattleScene+endTurn)
         * [.nextTurn()](#BattleScene+nextTurn)
         * [.attack(attacker, defender, damage)](#BattleScene+attack)
+        * [.addUnitDeathEventListeners()](#BattleScene+addUnitDeathEventListeners)
     * _static_
         * [.calculateDamage(attacker, defender, damage)](#BattleScene.calculateDamage)
 
@@ -30,11 +32,19 @@ Construct the battle scene
 | params.text | <code>string</code> | The text for the scene to display |
 | params.friendlyTeam | <code>array.&lt;Unit&gt;</code> | The friendly team in the battle |
 | params.enemyTeam | <code>array.&lt;Unit&gt;</code> | The enemy team in the battle |
+| params.victoryScene | <code>Scene</code> | The scene to move to upon victory |
+| params.deathScene | <code>Scene</code> | The scene to move to upon death |
 
 <a name="BattleScene+getTurnOrder"></a>
 
 ### battleScene.getTurnOrder()
 Get the turn order
+
+**Kind**: instance method of [<code>BattleScene</code>](#BattleScene)  
+<a name="BattleScene+endTurn"></a>
+
+### battleScene.endTurn()
+End the current turn
 
 **Kind**: instance method of [<code>BattleScene</code>](#BattleScene)  
 <a name="BattleScene+nextTurn"></a>
@@ -56,6 +66,12 @@ Emit an attack event between two units
 | defender | <code>Unit</code> | 
 | damage | <code>number</code> | 
 
+<a name="BattleScene+addUnitDeathEventListeners"></a>
+
+### battleScene.addUnitDeathEventListeners()
+Add event listeners for whenever a unit dies
+
+**Kind**: instance method of [<code>BattleScene</code>](#BattleScene)  
 <a name="BattleScene.calculateDamage"></a>
 
 ### BattleScene.calculateDamage(attacker, defender, damage)
