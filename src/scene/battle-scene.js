@@ -56,10 +56,25 @@ class BattleScene extends Scene {
     }
 
     /**
+     * End the current turn
+     */
+    endTurn() {
+        this.turnOrder.splice(0, 1);
+
+        this.nextTurn();
+    }
+
+    /**
      * Go to the next turn
      */
     nextTurn() {
         [this.currentAttacker] = this.turnOrder;
+
+        if (!this.currentAttacker) {
+            this.turnOrder = this.getTurnOrder();
+
+            this.nextTurn();
+        }
     }
 
     /**

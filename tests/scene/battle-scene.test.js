@@ -53,6 +53,19 @@ describe('BattleScene', () => {
         expect(battleScene.currentAttacker).toBe('Test Enemy Unit');
     });
 
+    it('can end the current turn', () => {
+        battleScene.endTurn();
+
+        expect(battleScene.currentAttacker).toBe('Test Friendly Unit');
+    });
+
+    it('will recalculate the turn order if it reaches the end', () => {
+        battleScene.endTurn();
+        battleScene.endTurn();
+
+        expect(battleScene.currentAttacker).toBe('Test Enemy Unit');
+    });
+
     it('a unit can attack another unit', (done) => {
         battleScene.on('attack', (event) => {
             expect(battleScene.enemyTeam[0].attributes.currentHealth).toBeLessThan(100);
