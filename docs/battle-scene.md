@@ -9,6 +9,8 @@ BattleScene
 * [BattleScene](#BattleScene) ⇐ <code>Scene</code>
     * [new BattleScene(params)](#new_BattleScene_new)
     * _instance_
+        * [.aliveFriendlies](#BattleScene+aliveFriendlies) : <code>number</code>
+        * [.aliveEnemies](#BattleScene+aliveEnemies) : <code>number</code>
         * [.getTurnOrder()](#BattleScene+getTurnOrder)
         * [.endTurn()](#BattleScene+endTurn)
         * [.nextTurn()](#BattleScene+nextTurn)
@@ -35,6 +37,20 @@ Construct the battle scene
 | params.victoryScene | <code>Scene</code> | The scene to move to upon victory |
 | params.deathScene | <code>Scene</code> | The scene to move to upon death |
 
+<a name="BattleScene+aliveFriendlies"></a>
+
+### battleScene.aliveFriendlies : <code>number</code>
+Amount of alive friendly team members
+When this number reaches 0, the death scene is mounted
+
+**Kind**: instance property of [<code>BattleScene</code>](#BattleScene)  
+<a name="BattleScene+aliveEnemies"></a>
+
+### battleScene.aliveEnemies : <code>number</code>
+Amount of alive enemy team members
+When this number reaches 0, the victory scene is mounted
+
+**Kind**: instance property of [<code>BattleScene</code>](#BattleScene)  
 <a name="BattleScene+getTurnOrder"></a>
 
 ### battleScene.getTurnOrder()

@@ -1,5 +1,5 @@
 import Scene from './scene';
-import TextScene from "./text-scene";
+import TextScene from './text-scene';
 import { dynamicSort } from '../utils/utils';
 
 /**
@@ -134,10 +134,22 @@ class BattleScene extends Scene {
         });
     }
 
+    /**
+     * Amount of alive friendly team members
+     * When this number reaches 0, the death scene is mounted
+     *
+     * @type {number}
+     */
     get aliveFriendlies() {
         return this.friendlyTeam.filter((unit) => unit.alive).length;
     }
 
+    /**
+     * Amount of alive enemy team members
+     * When this number reaches 0, the victory scene is mounted
+     *
+     * @type {number}
+     */
     get aliveEnemies() {
         return this.enemyTeam.filter((unit) => unit.alive).length;
     }
