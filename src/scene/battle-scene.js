@@ -1,4 +1,5 @@
 import Scene from './scene';
+import TextScene from "./text-scene";
 import { dynamicSort } from '../utils/utils';
 
 /**
@@ -16,6 +17,8 @@ class BattleScene extends Scene {
      * @param {string} params.text - The text for the scene to display
      * @param {array<Unit>} params.friendlyTeam - The friendly team in the battle
      * @param {array<Unit>} params.enemyTeam - The enemy team in the battle
+     * @param {Scene} params.victoryScene - The scene to move to upon victory
+     * @param {Scene} params.deathScene - The scene to move to upon death
      *
      * @constructor
      */
@@ -26,6 +29,11 @@ class BattleScene extends Scene {
         text = '',
         friendlyTeam = [],
         enemyTeam = [],
+        victoryScene,
+        deathScene = new TextScene({
+            name: 'Generic Death Screen',
+            text: 'You Died',
+        }),
     }) {
         super({
             name,
@@ -38,8 +46,11 @@ class BattleScene extends Scene {
         this.enemyTeam = enemyTeam;
         this.turnOrder = this.getTurnOrder();
         this.currentAttacker = null;
+        this.victoryScene = victoryScene;
+        this.deathScene = deathScene;
 
         this.nextTurn();
+        this.addUnitDeathEventListeners();
     }
 
     /**
@@ -49,7 +60,7 @@ class BattleScene extends Scene {
         const units = [
             ...this.friendlyTeam,
             ...this.enemyTeam,
-        ];
+        ].filter((unit) => unit.alive);
         const sortedUnits = dynamicSort(units, 'attributes.speed').reverse();
 
         return sortedUnits.map((unit) => unit.name);
@@ -70,7 +81,7 @@ class BattleScene extends Scene {
     nextTurn() {
         [this.currentAttacker] = this.turnOrder;
 
-        if (!this.currentAttacker) {
+        if (!this.currentAttacker && this.aliveFriendies && this.aliveEnemies) {
             this.turnOrder = this.getTurnOrder();
 
             this.nextTurn();
@@ -95,6 +106,42 @@ class BattleScene extends Scene {
             damageAfterBonuses,
         });
     }
+
+    /**
+     * Add event listeners for whenever a unit dies
+     */
+    addUnitDeathEventListeners() {
+        const units = [
+            ...this.friendlyTeam,
+            ...this.enemyTeam,
+        ];
+
+        units.forEach((unit) => {
+            unit.on('death', (event) => {
+                this.turnOrder = this.getTurnOrder();
+                [this.currentAttacker] = this.turnOrder;
+
+                if (this.aliveFriendies === 0) {
+                    this.next(this.deathScene);
+                }
+
+                if (this.aliveEnemies === 0) {
+                    this.next(this.victoryScene);
+                }
+
+                this.emit('death', event);
+            });
+        });
+    }
+
+    get aliveFriendies() {
+        return this.friendlyTeam.filter((unit) => unit.alive).length;
+    }
+
+    get aliveEnemies() {
+        return this.enemyTeam.filter((unit) => unit.alive).length;
+    }
+
 
     /**
      * Calculate the damage based on unit attributes

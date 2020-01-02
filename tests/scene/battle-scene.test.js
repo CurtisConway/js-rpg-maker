@@ -16,7 +16,7 @@ describe('BattleScene', () => {
                     armor: 200,
                     totalHealth: 100,
                     currentHealth: 100,
-                })
+                }),
             ],
             enemyTeam: [
                 new Unit({
@@ -26,9 +26,23 @@ describe('BattleScene', () => {
                     armor: 200,
                     totalHealth: 100,
                     currentHealth: 100,
-                })
-            ]
+                }),
+                new Unit({
+                    name: 'Test Enemy Unit 2',
+                    speed: 1,
+                    strength: 10,
+                    armor: 200,
+                    totalHealth: 100,
+                    currentHealth: 100,
+                }),
+            ],
+            victoryScene: new BattleScene({
+                name: 'Test Victory Scene',
+                text: 'Lorem ipsum dolor sit amet',
+            })
         });
+
+        battleScene.mount();
     });
 
     it('can have text', () => {
@@ -45,7 +59,7 @@ describe('BattleScene', () => {
 
     it('can determine the turn order based on speed', () => {
         expect(battleScene.turnOrder).toMatchObject(
-            ['Test Enemy Unit', 'Test Friendly Unit']
+            ['Test Enemy Unit', 'Test Friendly Unit', 'Test Enemy Unit 2']
         );
     });
 
@@ -63,7 +77,7 @@ describe('BattleScene', () => {
         battleScene.endTurn();
         battleScene.endTurn();
 
-        expect(battleScene.currentAttacker).toBe('Test Enemy Unit');
+        expect(battleScene.currentAttacker).toBe('Test Enemy Unit 2');
     });
 
     it('a unit can attack another unit', (done) => {
@@ -79,6 +93,53 @@ describe('BattleScene', () => {
             battleScene.friendlyTeam[0],
             battleScene.enemyTeam[0],
             10,
+        );
+    });
+
+    it('will recalculate the turn order when a unit dies', (done) => {
+        battleScene.on('death', () => {
+            expect(battleScene.currentAttacker).toBe('Test Friendly Unit');
+
+            done();
+        });
+
+        battleScene.attack(
+            battleScene.friendlyTeam[0],
+            battleScene.enemyTeam[0],
+            100,
+        );
+    });
+
+    it('will move on to the victory scene when the last enemy unit dies', (done) => {
+        battleScene.victoryScene.on('mount', () => {
+            expect(battleScene.victoryScene.isMounted).toBe(true);
+
+            done();
+        });
+
+        battleScene.attack(
+            battleScene.friendlyTeam[0],
+            battleScene.enemyTeam[0],
+            100,
+        );
+        battleScene.attack(
+            battleScene.friendlyTeam[0],
+            battleScene.enemyTeam[1],
+            100,
+        );
+    });
+
+    it('will move on to the death scene when the last friendly unit dies', (done) => {
+        battleScene.deathScene.on('mount', () => {
+            expect(battleScene.deathScene.isMounted).toBe(true);
+
+            done();
+        });
+
+        battleScene.attack(
+            battleScene.enemyTeam[0],
+            battleScene.friendlyTeam[0],
+            100,
         );
     });
 
@@ -128,5 +189,5 @@ describe('BattleScene', () => {
 
             expect(damage).toBe(13);
         });
-    })
+    });
 });
