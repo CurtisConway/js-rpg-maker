@@ -2,7 +2,7 @@
  * Sort an array of objects by key
  *
  * @param array {array}
- * @param key {string|number}
+ * @param key {string}
  * @returns {Array}
  */
 export function dynamicSort(array, key) {
