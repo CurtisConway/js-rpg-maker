@@ -61,6 +61,44 @@ class BattleScene extends Scene {
     nextTurn() {
         [this.currentAttacker] = this.turnOrder;
     }
+
+    /**
+     * Emit an attack event between two units
+     *
+     * @param {Unit} attacker
+     * @param {Unit} defender
+     * @param {number} damage
+     */
+    attack(attacker, defender, damage) {
+        const damageAfterBonuses = BattleScene.calculateDamage(attacker, defender, damage);
+
+        defender.damage(damageAfterBonuses);
+
+        this.emit('attack', {
+            attacker,
+            defender,
+            damageAfterBonuses,
+        });
+    }
+
+    /**
+     * Calculate the damage based on unit attributes
+     *
+     * Will increase damage by 1 for every 2 strength the attacker has
+     * Will reduce the damage by 1 for every 100 armor the defender has
+     *
+     * @param {Unit} attacker
+     * @param {Unit} defender
+     * @param {number} damage
+     */
+    static calculateDamage(attacker, defender, damage) {
+        const { strength } = attacker.attributes;
+        const { armor } = defender.attributes;
+
+        const damageBeforeArmor = damage + Math.floor(strength / 2);
+
+        return damageBeforeArmor - Math.floor(armor / 100);
+    }
 }
 
 export default BattleScene;
