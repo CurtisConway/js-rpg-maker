@@ -81,7 +81,7 @@ class BattleScene extends Scene {
     nextTurn() {
         [this.currentAttacker] = this.turnOrder;
 
-        if (!this.currentAttacker && this.aliveFriendies && this.aliveEnemies) {
+        if (!this.currentAttacker && this.aliveFriendlies && this.aliveEnemies) {
             this.turnOrder = this.getTurnOrder();
 
             this.nextTurn();
@@ -121,7 +121,7 @@ class BattleScene extends Scene {
                 this.turnOrder = this.getTurnOrder();
                 [this.currentAttacker] = this.turnOrder;
 
-                if (this.aliveFriendies === 0) {
+                if (this.aliveFriendlies === 0) {
                     this.next(this.deathScene);
                 }
 
@@ -134,7 +134,7 @@ class BattleScene extends Scene {
         });
     }
 
-    get aliveFriendies() {
+    get aliveFriendlies() {
         return this.friendlyTeam.filter((unit) => unit.alive).length;
     }
 
