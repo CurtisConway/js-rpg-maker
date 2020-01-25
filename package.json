@@ -8,7 +8,7 @@
     "coveralls": "jest --coverage && cat ./tests/coverage/lcov.info | coveralls"
   },
   "repository": "https://github.com/CurtisConway/js-rpg-maker.git",
-  "author": "Curtis <curtis@drumeo.com>",
+  "author": "Curtis <curtis.conway14@gmail.com>",
   "license": "MIT",
   "private": false,
   "devDependencies": {
